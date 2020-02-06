@@ -40,13 +40,13 @@ $(document).ready(function(){
             if (xhr.readyState != 4) {
                 return;
             }
-
+            console.log(xhr.responseText);
             var response = JSON.parse(xhr.responseText);
-            $('.otvet').empty();
-            response.users.forEach(function(user) {
-                $('.otvet').append('<h3>'+user.id+'</h3><p>'+user.login+'</p>');
-            });
-
+            console.log(xhr.responseText);
+            $('.otvet2').empty();
+            
+            $('.otvet2').append('ID пользователя<h3>'+response.id+'</h3>');
+           
         }
 
         return false;//Нужно что бы страницы не перегружалась
@@ -54,7 +54,7 @@ $(document).ready(function(){
     //НЕ Готово
     $(".show_user").submit(function(){
        
-        console.log(".adduser");
+        console.log(".show_user");
         
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'api2/show_user.php', true);
@@ -67,17 +67,18 @@ $(document).ready(function(){
         console.log(data);
         data = JSON.stringify(data);
         xhr.send(data);
-        console.log(xhr);
+        console.log(data);
         xhr.onreadystatechange = function() {
             if (xhr.readyState != 4) {
                 return;
             }
-            var response = JSON.parse(xhr.responseText);
-            $('.otvet2').empty();
-            response.users.forEach(function(user) {
-                $('.otvet2').append('<h3>'+user.id+'</h3><p>'+user.login+'</p>');
             console.log(xhr.responseText);
-            });
+            var response = JSON.parse(xhr.responseText);
+            // console.log(response);
+            $('.otvet2').empty();
+            $('.otvet2').append("Логин пользователя <h3><p>"+response.login+"</p>");
+            console.log(xhr.responseText);
+           
 
 
 
@@ -86,7 +87,7 @@ $(document).ready(function(){
         }
         return false;
     });
-    //НЕ Готово (В базу записывает но ответ не возващет)
+    //Готово (В базу записывает ответ возващет)
     $(".update_user").submit(function(){
     
         console.log(".update_user");
@@ -106,21 +107,18 @@ $(document).ready(function(){
         xhr.onreadystatechange = function() {
             if (xhr.readyState != 4) {
                 return;
-            }
-            var response = JSON.parse(xhr.responseText);
-            $('.otvet3').empty();
-            response.users.forEach(function(user) {
-                $('.otvet3').append('Новый логин записан<h3>'+user.id+'</h3><p>'+user.login+'</p>');
+            }     
             console.log(xhr.responseText);
-            });
+            var response =JSON.parse(xhr.responseText);
+            console.log(response);
+            $('.otvet3').empty();
+            
+            
 
-
-
+        $('.otvet3').append("Новый логин пользователя сохранен<h3>"+response.id+"</h3><p>"+response.newlogin+"</p>");
 
 
         }
-    
-
 
     return false;
     });
