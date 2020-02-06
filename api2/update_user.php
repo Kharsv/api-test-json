@@ -3,7 +3,7 @@
 include('../db.php'); // Подключение к базе данных
 
 $postData = file_get_contents('php://input');
-var_dump($postData);
+// var_dump($postData);
 $postData = json_decode($postData, true);
 
 
@@ -20,7 +20,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 foreach ($users as $user) {
     if ($user['login'] == $findbylogin) {
-            $findbyid = $user['id'];
+        $findbyid = $user['id'];
         //     var_dump ($findbyid);
         // echo 
         // "<div>
@@ -32,11 +32,11 @@ foreach ($users as $user) {
         WHERE `id` = ('$findbyid')";
 
         $result = mysqli_query($link, $query);
-
-        
-        
+        // var_dump ($result);
+        $data['id'] = $findbyid;
+        $data['newlogin'] = $newlogin;   
+        $data = json_encode($data);
         }
     }   
-
-
+    echo $data;
 
